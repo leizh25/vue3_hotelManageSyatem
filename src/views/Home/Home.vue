@@ -16,9 +16,11 @@
             </el-checkbox-group>
           </el-popover>
         </div>
-        <router-link :to="getPath(item)" v-for="(item, index) in collectedMenu" :key="index" style="margin-right: 20px">
-          <el-button size="large" type="primary">{{ item }}</el-button>
-        </router-link>
+        <div style="display: flex;flex-wrap: wrap;gap: 20px;">
+          <router-link :to="getPath(item)" v-for="(item, index) in collectedMenu" :key="index" >
+            <el-button size="large" type="primary">{{ item }}</el-button>
+          </router-link>
+        </div>
       </div>
     </el-card>
   </div>

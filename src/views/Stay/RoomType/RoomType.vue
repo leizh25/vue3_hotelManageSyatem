@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-card>
-      <h1 style="text-align: center; font-weight: bolder; color: #f00; font-size: 24px">正在写</h1>
       <el-form :inline="true">
         <el-form-item>
           <el-input v-model="formData.typeName" clearable placeholder="添加房间类型"></el-input>
