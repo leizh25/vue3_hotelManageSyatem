@@ -20,12 +20,17 @@ import router from '@/router'
 //引入仓库
 import pinia from './store'
 
+import PrimeVue from "primevue/config";
+import 'primevue/resources/themes/aura-light-green/theme.css'
 //获取应用实例对象
 const app = createApp(App)
 //安装element-plus插件
 app.use(ElementPlus, {
   locale: zhCn, //element-plus国际化的配置
 })
+app.use(PrimeVue,{
+  unstyle: true
+});
 
 //安装自定义插件
 app.use(globalComponent)
