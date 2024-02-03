@@ -101,9 +101,6 @@
           <el-input type="number" v-model="formData.orderPrice"></el-input>
         </el-form-item>
         <el-form-item label="订单状态">
-          <!-- <el-select v-model="formData.orderState">
-                        <el-option v-for="(item, index) in orderStates" :key="index" :label="item" :value="index"></el-option>
-                    </el-select> -->
           <el-radio-group v-model="formData.orderState">
             <el-radio v-for="(item, index) in orderStates" :key="index" :label="index">{{ item }}</el-radio>
           </el-radio-group>
@@ -225,13 +222,6 @@ const getAllHotels = async () => {
     ElMessage.error({ message: (error as Error).message || '加载酒店列表失败' })
   }
 }
-/* const dateRange = computed(() => {
-    // const date = new Date()
-    // const year = date.getFullYear()
-    // const month = date.getMonth() + 1
-    // const day = date.getDate()
-    return [new Date(), new Date()]
-}) */
 
 const save = async () => {
   try {

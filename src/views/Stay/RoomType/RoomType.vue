@@ -33,53 +33,6 @@
         </el-table-column>
       </el-table>
     </el-card>
-    <!-- <el-dialog v-model="showDialog" title="添加房间类型">
-            <el-form v-model="formData" label-width="100px">
-                <el-form-item label="类型名称" required>
-                    <el-input v-model="formData.typeName" placeholder="请输入类型名"></el-input>
-                </el-form-item>
-                <el-form-item label="酒店ID">
-                    <el-input v-model="formData.hotelId" placeholder="请选择酒店"></el-input>
-                </el-form-item>
-                <el-form-item label="床数">
-                    <el-input v-model="formData.bedNumber" placeholder="请输入床数"></el-input>
-                </el-form-item>
-                <el-form-item label="床型">
-                    <el-input v-model="formData.bedSize" placeholder="请输入类床型"></el-input>
-                </el-form-item>
-                <el-form-item label="价格">
-                    <el-input v-model="formData.roomPrice" placeholder="请输入价格"></el-input>
-                </el-form-item>
-                <el-form-item label="房间面积">
-                    <el-input v-model="formData.roomSize" placeholder="请输入房间面积"></el-input>
-                </el-form-item>
-                <el-form-item label="窗户数量">
-                    <el-input v-model="formData.windows" placeholder="请输入窗户数量"></el-input>
-                </el-form-item>
-                <el-form-item label="剩余房间数">
-                    <el-input v-model="formData.roomSurplus" placeholder="请输入剩余房间数"></el-input>
-                </el-form-item>
-                <el-form-item label="房型">
-                    <el-select></el-select>
-                </el-form-item>
-                <el-form-item label="图片">
-                    <el-upload v-model:file-list="fileList" :action="`${prefix}/common/upload`" :limit="1" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :on-success="handleSuccess">
-                        <el-icon>
-                            <Plus />
-                        </el-icon>
-                    </el-upload>
-                </el-form-item>
-            </el-form>
-            <template #footer>
-                <span class="dialog-footer">
-                    <el-button @click="showDialog = false">取消</el-button>
-                    <el-button type="primary" @click="confirmAdd()">确定</el-button>
-                </span>
-            </template>
-        </el-dialog> -->
-    <!-- <el-dialog v-model="dialogVisible">
-            <img w-full :src="dialogImageUrl" alt="预览图片" />
-        </el-dialog> -->
   </div>
 </template>
 <script setup lang="ts">
@@ -88,8 +41,6 @@ import type { AllRoomTypeResponse, RoomType } from '@/api/roomType/type'
 import { ElMessage } from 'element-plus'
 import type { Response } from '@/api/stay/type'
 const allRoomType = ref<RoomType[]>([])
-// const content = ref<string>("")
-// const showDialog = ref<boolean>(false)
 let formData = reactive<RoomType>({
   bedNumber: '',
   bedSize: '',
@@ -102,11 +53,7 @@ let formData = reactive<RoomType>({
   windows: '',
   typeName: '',
 })
-// const pictureCard = reactive<{ name: string, url: string }[]>([])
-// const prefix = import.meta.env.VITE_APP_BASE_API || ""
-// const dialogVisible = ref<boolean>(false)
-// const dialogImageUrl = ref<string>("")
-// const fileList = ref<{ name: string, url: string }[]>([])
+
 const selections = ref<RoomType[]>([])
 const inputArr = ref<any[]>([])
 onMounted(() => {
@@ -139,21 +86,6 @@ const deleteType = async (ids: number[] = selections.value.map((item) => item.ro
   }
 }
 
-// const add = () => {
-//     Object.assign(formData, {
-//         // bedNumber: "",
-//         // bedSize: "",
-//         // hotelId: "",
-//         // roomPrice: "",
-//         // roomSize: "",
-//         // roomSurplus: "",
-//         // roomTypeId: "",
-//         // roomTypeImage: "",
-//         // windows: "",
-//         typeName: "",
-//     })
-//     // showDialog.value = true
-// }
 
 const confirmAdd = async (param: RoomType = formData) => {
   try {
@@ -170,17 +102,6 @@ const confirmAdd = async (param: RoomType = formData) => {
     ElMessage.error((error as Error).message)
   }
 }
-// const handleRemove = (uploadFile: any, uploadFiles: any) => {
-//     console.log(uploadFile, uploadFiles)
-// }
-
-// const handlePictureCardPreview = (uploadFile: any) => {
-//     dialogImageUrl.value = uploadFile.url!
-//     dialogVisible.value = true
-// }
-// const handleSuccess = (res: any) => {
-//     formData.roomTypeImage = res.data[0]
-// }
 
 const selectionHandler = (roomType: RoomType[]) => (selections.value = roomType)
 

@@ -17,14 +17,9 @@
             </el-checkbox-group>
           </el-popover>
         </div>
-        <!-- <div style="display: flex;flex-wrap: wrap;gap: 20px;">
-          <router-link :to="getPath(item)" v-for="(item, index) in collectedMenu" :key="index">
-            <el-button size="large" type="primary">{{ item }}</el-button>
-          </router-link>
-        </div> -->
         <el-form>
           <el-form-item label="数量">
-            <el-select v-model="CommentChartDataNumber" placeholder="请选择" @change="getCommentChartData">
+            <el-select v-model="commentChartDataNumber" placeholder="请选择" @change="getCommentChartData">
               <el-option label="10" value="10"></el-option>
               <el-option label="20" value="20"></el-option>
               <!-- <el-option label="30" value="30"></el-option> -->
@@ -32,13 +27,11 @@
           </el-form-item>
         </el-form>
         <div ref="chart" style="width:100%;height: 600px;margin-top: -30px;"></div>
-        <!-- <el-input style="width: 200px;margin-left: 20px;"></el-input> -->
 
       </div>
       <Dock :model="collectedMenu" position="bottom">
         <template #item="{ item }">
           <router-link :to="getPath(item)" class="p-dock-link">
-            <!-- <img alt="item.label" :src="item.icon" style="width: 35px" /> -->
             <el-icon size="50" style="margin-left: 4px;">
               <component :is="getIcon(item)"></component>
             </el-icon>
@@ -68,7 +61,7 @@ const checkList = ref<any>([])
 const collectedMenuString = ref<string>()
 const collectedMenu = ref<any[]>()
 const chart = ref<any>()
-const CommentChartDataNumber = ref<number>(10)
+const commentChartDataNumber = ref<number>(10)
 let option = reactive<EChartsOption | any>({
   xAxis: {
     type: 'category',
@@ -90,17 +83,13 @@ let myChart = ref<echarts.ECharts>()
 
 onMounted(() => {
   initDock()
+  initChart()
   getCommentChartData()
 })
 watch(
   () => collectedMenuString.value,
-  (newVal) => {
-    collectedMenu.value = newVal?.split(',')?.filter((item) => item)
-    // console.log('collectedMenu.value: ', collectedMenu.value);
-  },
-  {
-    immediate: true,
-  },
+  newVal => collectedMenu.value = newVal?.split(',')?.filter((item) => item),
+  { immediate: true, },
 )
 const getRoutes = (routes: any) => {
   routes.forEach((item: any) => {
@@ -117,7 +106,6 @@ const getRoutes = (routes: any) => {
   return menuRoutes.value
 }
 const checkListChangeHandler = (param: any) => {
-  // console.log('param: ', param);
   localStorage.setItem('collectedMenuString', param)
   collectedMenuString.value = localStorage.getItem('collectedMenuString') as string
 }
@@ -136,20 +124,18 @@ const getIcon = (str: any) => {
 const initChart = () => {
   echarts.use([GridComponent, BarChart, CanvasRenderer]);
   myChart.value = echarts.init(chart.value);
-  // opt && myChart.value.setOption(opt);
 }
 const initDock = () => {
   menuRoutes.value = getRoutes(userStore.menuRoutes)
   collectedMenuString.value = localStorage.getItem('collectedMenuString') as string
   checkList.value = localStorage.getItem('collectedMenuString')?.split(',')
 }
-const getCommentChartData = async (p: number = CommentChartDataNumber.value) => {
+const getCommentChartData = async (p: number = commentChartDataNumber.value) => {
   try {
     const res: CommentChartDataResponse = await reqCommentChartData(p)
     if (res.code === 1) {
       option.xAxis.data = res.data.map((item: CommentChartData) => item.hotel_name)
       option.series[0].data = res.data.map((item: CommentChartData) => item.average_star_count)
-      initChart()
       myChart.value?.setOption(option);
     } else {
       throw new Error(res.msg)
@@ -158,9 +144,7 @@ const getCommentChartData = async (p: number = CommentChartDataNumber.value) => 
     ElMessage.error((error as Error).message)
   }
 }
-// const changeHandler = (n: number) => {
-//   getCommentChartData(n)
-// }
+
 
 </script>
 <style lang="less">
@@ -189,7 +173,6 @@ const getCommentChartData = async (p: number = CommentChartDataNumber.value) => 
 }
 
 .p-dock-item {
-  /* gap: 20px; */
   margin-right: 30px;
   text-align: center;
 
@@ -203,7 +186,11 @@ const getCommentChartData = async (p: number = CommentChartDataNumber.value) => 
   cursor: pointer;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transition: all .2s;
 
+  &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .p-menuitem-content {

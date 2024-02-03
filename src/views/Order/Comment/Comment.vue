@@ -136,8 +136,6 @@ const getData = async (p: number = current.value, ps: number = pageSize.value) =
 const handleEdit = (cmt: Comment) => {
   // console.log(cmt);
   dialogFormVisible.value = true
-  // formData = cmt
-  // formData.value = JSON.parse(JSON.stringify(cmt))
   formData.value = _.cloneDeep(cmt)
   formData.value.stars = Number(formData.value.stars) || 0
   formData.value.createTime = new Date(formData.value.createTime as string)
@@ -204,8 +202,6 @@ const save = async () => {
 }
 
 const toInput = (t: number, id: number) => {
-  // navigator.clipboard.writeText(id.toString())
-  // ElMessage.success({ message: '复制成功' })
   if (t === 1) {
     queryType.value = 'hotelId'
   } else {

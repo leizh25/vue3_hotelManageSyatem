@@ -27,13 +27,10 @@
           <template #default="{ row, $index }">
             <span @click="edit(row, $index)" v-if="!row.isFocus">{{ row.roleDep }}</span>
             <el-input :ref="(vc: any) => (inputArr[$index] = vc)" v-model="row.roleDep" v-else @blur="save(row)"></el-input>
-            <!-- <el-select v-model="value" placeholder="Select" style="width: 240px">
-                        </el-select> -->
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template #default="{ row }">
-            <!-- <el-button type="warning" size="small" @click="edit(row)">修改</el-button> -->
             <el-popconfirm :title="`确定删除 ${row.roleDep} 吗?`" width="200" @confirm="deleteRole(row.roleId)">
               <template #reference>
                 <el-button type="danger" size="small">删除</el-button>
@@ -53,16 +50,6 @@
         style="margin-top: 20px"
       ></el-pagination>
     </el-card>
-    <!-- <el-dialog :visible="showDialog">
-            <template #title>编辑角色</template>
-            <el-form ref="form" :model-value="formdata" label-width="100px" label-position="right">
-                <el-form-item label="角色名称" prop="name">
-                    <el-input v-model="form.name" placeholder="请输入角色名称"></el-input>
-                </el-form-item>
-                <el-form-item label="角色描述" prop="description">
-                </el-form-item>
-            </el-form>
-        </el-dialog> -->
   </div>
 </template>
 <script setup lang="ts">
@@ -81,11 +68,7 @@ const inputArr = ref<any>([])
 const selections = ref<Role[]>([])
 const inpRoleId = ref()
 const inpRoleInfo = reactive({ roleDep: '' })
-// const showDialog = ref(false)
-// let formdata = reactive<Role>({
-//     roleId: 0,
-//     roleDep: ""
-// })
+
 onMounted(() => {
   getData()
 })
@@ -130,9 +113,7 @@ const selectionChangeHandle = (selection: Role[]) => {
   selections.value = selection
 }
 const search = () => {
-  // if (inpRoleId.value.trim() !== '') {
-  // getData(1, pageSize.value, inpRoleId.value.trim() || "")
-  // }
+ 
   inpRoleId.value.trim() ? getRoleById() : getData()
 }
 const getRoleById = async () => {

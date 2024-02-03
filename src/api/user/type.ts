@@ -4,23 +4,6 @@ export interface loginForm {
   password: string
 }
 
-// //登录接口返回的数据的类型
-// interface dataType {
-//   msg: string,
-//   data: {
-//     empId: number,
-//     roleId: number,
-//     empSex: string,
-//     empPhone: string,
-//     password: string,
-//     positions: string,
-//     empAddress: string,
-//     empName: string,
-//   },
-//   map: {
-//     JWT: string
-//   }
-// }
 export interface loginResponseData {
   code: number
   msg: string
