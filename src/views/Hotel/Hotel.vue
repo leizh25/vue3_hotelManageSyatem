@@ -69,7 +69,7 @@
           <el-input placeholder="请输入描述" v-model="addHotelForm.hotelDescription"></el-input>
         </el-form-item>
         <el-form-item label="电话">
-          <el-input placeholder="请输入电话" v-model="addHotelForm.hotelPhone"></el-input>
+          <el-input placeholder="请输入电话" v-model="addHotelForm.hotelPhone" type="number"></el-input>
         </el-form-item>
         <el-form-item label="状态">
           <el-switch v-model="addHotelForm.hotelState" inline-prompt active-text="营业" inactive-text="停业" />

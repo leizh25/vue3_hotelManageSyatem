@@ -31,6 +31,7 @@ const useUserStore = defineStore('User', {
       //登录请求成功200 ->token
       //登录请求失败201 ->登录失败错误信息
       if (res.code == 1) {
+        if (![1, 2].includes(res.data.roleId)) return Promise.reject(new Error('您暂无权限登录'))
         //pinia仓库存储token
         //由于pinia或者vuex存储数据其实就是利用js对象
         this.token = res.map.JWT

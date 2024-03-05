@@ -80,7 +80,7 @@
           <el-input v-model="formData.positions" placeholder="请输入职位" />
         </el-form-item>
         <el-form-item label="电话" prop="empPhone">
-          <el-input v-model="formData.empPhone" placeholder="请输入电话" />
+          <el-input v-model="formData.empPhone" placeholder="请输入电话" type="number" />
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input v-model="formData.password" placeholder="请输入密码" type="password" show-password />
