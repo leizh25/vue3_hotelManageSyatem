@@ -7,7 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Dock: typeof import('primevue/dock')['default']
+    Dock: (typeof import('primevue/dock'))['default']
     Pagination: typeof import('./src/components/Pagination/Pagination.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

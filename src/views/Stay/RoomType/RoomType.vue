@@ -86,7 +86,6 @@ const deleteType = async (ids: number[] = selections.value.map((item) => item.ro
   }
 }
 
-
 const confirmAdd = async (param: RoomType = formData) => {
   try {
     const res: Response = await reqAddOrUpdateType(param)

@@ -113,7 +113,6 @@ const selectionChangeHandle = (selection: Role[]) => {
   selections.value = selection
 }
 const search = () => {
- 
   inpRoleId.value.trim() ? getRoleById() : getData()
 }
 const getRoleById = async () => {

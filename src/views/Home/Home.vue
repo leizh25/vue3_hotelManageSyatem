@@ -1,9 +1,8 @@
 <template>
   <div>
-    <el-card class="bg dock-window" style="height: 800px; position: relative;">
+    <el-card class="bg dock-window" style="height: 800px; position: relative">
       <el-calendar v-model="date" style="width: 400px; position: absolute; right: 20px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1)" />
-      <div style="width: 70%;">
-
+      <div style="width: 70%">
         <div style="display: flex">
           <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; margin-right: 20px">常用入口</h1>
           <el-popover placement="bottom" title="选择常用标签" :width="200" trigger="click">
@@ -26,13 +25,12 @@
             </el-select>
           </el-form-item>
         </el-form>
-        <div ref="chart" style="width:100%;height: 600px;margin-top: -30px;"></div>
-
+        <div ref="chart" style="width: 100%; height: 600px; margin-top: -30px"></div>
       </div>
       <Dock :model="collectedMenu" position="bottom">
         <template #item="{ item }">
           <router-link :to="getPath(item)" class="p-dock-link">
-            <el-icon size="50" style="margin-left: 4px;">
+            <el-icon size="50" style="margin-left: 4px">
               <component :is="getIcon(item)"></component>
             </el-icon>
           </router-link>
@@ -44,16 +42,14 @@
 </template>
 <script setup lang="ts">
 import useUserStore from '@/store/modules/user'
-import * as echarts from 'echarts/core';
-import { GridComponent, GridComponentOption } from 'echarts/components';
-import { BarChart, BarSeriesOption } from 'echarts/charts';
-import { CanvasRenderer } from 'echarts/renderers';
-import { reqCommentChartData } from "@/api/charts"
-import type { CommentChartDataResponse, CommentChartData } from "@/api/charts/type"
-import { ElMessage } from 'element-plus';
-type EChartsOption = echarts.ComposeOption<
-  GridComponentOption | BarSeriesOption
->;
+import * as echarts from 'echarts/core'
+import { GridComponent, GridComponentOption } from 'echarts/components'
+import { BarChart, BarSeriesOption } from 'echarts/charts'
+import { CanvasRenderer } from 'echarts/renderers'
+import { reqCommentChartData } from '@/api/charts'
+import type { CommentChartDataResponse, CommentChartData } from '@/api/charts/type'
+import { ElMessage } from 'element-plus'
+type EChartsOption = echarts.ComposeOption<GridComponentOption | BarSeriesOption>
 const userStore = useUserStore()
 const date = ref(new Date())
 const menuRoutes = ref<any>([])
@@ -66,20 +62,19 @@ let option = reactive<EChartsOption | any>({
   xAxis: {
     type: 'category',
     data: [],
-    axisLabel: { interval: 0, rotate: 30 }
+    axisLabel: { interval: 0, rotate: 30 },
   },
   yAxis: {
-    type: 'value'
+    type: 'value',
   },
   series: [
     {
       data: [],
-      type: 'bar'
-    }
-  ]
-});
+      type: 'bar',
+    },
+  ],
+})
 let myChart = ref<echarts.ECharts>()
-
 
 onMounted(() => {
   initDock()
@@ -88,8 +83,8 @@ onMounted(() => {
 })
 watch(
   () => collectedMenuString.value,
-  newVal => collectedMenu.value = newVal?.split(',')?.filter((item) => item),
-  { immediate: true, },
+  (newVal) => (collectedMenu.value = newVal?.split(',')?.filter((item) => item)),
+  { immediate: true },
 )
 const getRoutes = (routes: any) => {
   routes.forEach((item: any) => {
@@ -122,8 +117,8 @@ const getIcon = (str: any) => {
   return arr[0] ? arr[0].meta.icon : 'Coin'
 }
 const initChart = () => {
-  echarts.use([GridComponent, BarChart, CanvasRenderer]);
-  myChart.value = echarts.init(chart.value);
+  echarts.use([GridComponent, BarChart, CanvasRenderer])
+  myChart.value = echarts.init(chart.value)
 }
 const initDock = () => {
   menuRoutes.value = getRoutes(userStore.menuRoutes)
@@ -136,7 +131,7 @@ const getCommentChartData = async (p: number = commentChartDataNumber.value) => 
     if (res.code === 1) {
       option.xAxis.data = res.data.map((item: CommentChartData) => item.hotel_name)
       option.series[0].data = res.data.map((item: CommentChartData) => item.average_star_count)
-      myChart.value?.setOption(option);
+      myChart.value?.setOption(option)
     } else {
       throw new Error(res.msg)
     }
@@ -144,8 +139,6 @@ const getCommentChartData = async (p: number = commentChartDataNumber.value) => 
     ElMessage.error((error as Error).message)
   }
 }
-
-
 </script>
 <style lang="less">
 .bg {
@@ -163,7 +156,7 @@ const getCommentChartData = async (p: number = commentChartDataNumber.value) => 
   z-index: 1;
 }
 
-.dock-demo>.p-dock {
+.dock-demo > .p-dock {
   z-index: 1000;
 }
 
@@ -175,7 +168,6 @@ const getCommentChartData = async (p: number = commentChartDataNumber.value) => 
 .p-dock-item {
   margin-right: 30px;
   text-align: center;
-
 }
 
 .p-dock-icon {
@@ -186,7 +178,7 @@ const getCommentChartData = async (p: number = commentChartDataNumber.value) => 
   cursor: pointer;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  transition: all .2s;
+  transition: all 0.2s;
 
   &:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
