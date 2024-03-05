@@ -56,7 +56,7 @@
     <!-- 添加/修改 酒店弹窗 -->
     <el-dialog v-model="addHotelDialogVisible" :title="`${addHotelForm.hotelId ? '编辑' : '添加'}酒店`" width="30%" :before-close="handleCloseDialog">
       <el-form :model="addHotelForm" label-width="80px">
-        <el-form-item label="城市">
+        <el-form-item label="城市" required>
           <el-input placeholder="请输入城市" v-model="addHotelForm.city"></el-input>
         </el-form-item>
         <el-form-item label="地址">
@@ -261,6 +261,7 @@ const handleCloseDialog = () => {
 }
 const confirmAddHotel = async () => {
   try {
+    if (!addHotelForm.city?.trim()) throw new Error('请输入城市')
     const res: Response = await reqAddOrUpdateHotel(Object.assign(addHotelForm, { hotelState: addHotelForm.hotelState ? 1 : 0 }))
     if (res.code === 1) {
       ElMessage.success(addHotelForm.hotelId ? '修改成功' : '添加成功')
