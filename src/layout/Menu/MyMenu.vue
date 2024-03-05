@@ -23,7 +23,7 @@
       </el-menu-item>
     </template>
     <!-- 有子路由且个数不止1个 -->
-    <el-sub-menu :index="item.path" v-if="item.children && item.children.length > 1">
+    <el-sub-menu :index="item.path" v-if="item.children && item.children.length > 1 && showRoute(item)">
       <template #title>
         <el-icon>
           <component :is="item.meta.icon"></component>
@@ -35,11 +35,21 @@
   </template>
 </template>
 <script setup lang="ts">
+import useUserStore from '@/store/modules/user'
 import { useRouter } from 'vue-router'
 //获取父组件传递过来的全部路由的数据
 defineProps(['menuList'])
 //获取路由器对象
 const $router = useRouter()
+const userStore = useUserStore()
+let showRoute = (item: any) => {
+  if (item.meta.roleId) {
+    if (item.meta.roleId === userStore.roleId) return true
+    else return false
+  } else {
+    return true
+  }
+}
 //点击菜单的回调
 const goRoute = (vc: any) => {
   //路由跳转

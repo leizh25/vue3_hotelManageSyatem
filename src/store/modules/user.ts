@@ -19,6 +19,7 @@ const useUserStore = defineStore('User', {
       userName: '',
       avatar: '',
       empId: 0,
+      roleId: Number(localStorage.getItem('roleId')) || 0,
     }
   },
   //处理异步或者逻辑的地方
@@ -36,6 +37,8 @@ const useUserStore = defineStore('User', {
         this.userName = res.data.empName
         this.avatar = 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
         this.empId = res.data.empId
+        localStorage.setItem('roleId', (res.data.roleId && res.data.roleId.toString()) || '0')
+        this.roleId = res.data.roleId
         //本地存储持久化存储一份
         SET_TOKEN(res.map.JWT)
         //能保证当前async函数返回一个成功的promise
@@ -63,6 +66,8 @@ const useUserStore = defineStore('User', {
       this.token = ''
       this.userName = ''
       this.avatar = ''
+      this.roleId = 0
+      localStorage.setItem('roleId', '0')
       REMOVE_TOKEN()
       reqLogout()
     },

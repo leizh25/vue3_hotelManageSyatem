@@ -7,4 +7,5 @@ export interface UserState {
   userName: string
   avatar: string
   empId: number
+  roleId: number
 }

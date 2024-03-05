@@ -108,6 +108,7 @@ export const constantRoutes = [
     meta: {
       title: '员工管理',
       icon: 'Lock',
+      roleId: 1,
     },
     redirect: '/emp/info',
     children: [
