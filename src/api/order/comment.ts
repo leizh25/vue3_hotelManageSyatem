@@ -4,6 +4,7 @@
 import request from '@/utils/request'
 import { AllCommentsResponse } from './type'
 import { Response } from '../stay/type'
+import { getHotelEmpId } from '@/utils'
 
 enum API {
   COMMENT = '/evaluations',
@@ -18,7 +19,7 @@ enum API {
  * @returns
  */
 export const reqAllComments = (page: number, pageSize: number) =>
-  request.get<any, AllCommentsResponse>(API.COMMENT + `?page=${page}&pageSize=${pageSize}`)
+  request.get<any, AllCommentsResponse>(API.COMMENT + `??hotelId=${getHotelEmpId()}&page=${page}&pageSize=${pageSize}`)
 
 /**
  * 根据顾客ID或酒店id获取评价

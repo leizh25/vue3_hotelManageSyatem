@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 import type { AllRoomTypeResponse, RoomType, RoomTypesByHotelIdResponse } from './type'
 import { Response } from '../stay/type'
-
+import { getHotelEmpId } from '@/utils'
 enum API {
   ALLROOMTYPE = '/roomType/AllRoomsType',
   ROOMTYPE = '/roomType',
@@ -12,7 +12,7 @@ enum API {
  * 获取所有房间类型接口
  * @returns
  */
-export const reqAllRoomType = () => request.get<any, AllRoomTypeResponse>(API.ALLROOMTYPE)
+export const reqAllRoomType = () => request.get<any, AllRoomTypeResponse>(API.ALLROOMTYPE + '?hotelId=' + getHotelEmpId())
 
 /**
  * 批量删除房间类型接口

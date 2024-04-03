@@ -1,7 +1,7 @@
 <template>
   <template v-for="item in menuList" :key="item.path">
     <!-- 没有子路由 -->
-    <template v-if="!item.children">
+    <template v-if="!item.children && showRoute(item)">
       <el-menu-item :index="item.path" v-if="!item.meta.hidden" @click="goRoute">
         <el-icon>
           <component :is="item.meta.icon"></component>
@@ -12,8 +12,8 @@
       </el-menu-item>
     </template>
     <!-- 有子路由但是只有一个子路由 -->
-    <template v-if="item.children && item.children.length == 1">
-      <el-menu-item :index="item.children[0].path" v-if="!item.children[0].meta.hidden" @click="goRoute">
+    <template v-if="item.children && item.children.length == 1 && showRoute(item)">
+      <el-menu-item :index="item.children[0].path" v-if="!item.children[0].meta.hidden && showRoute(item)" @click="goRoute">
         <el-icon>
           <component :is="item.children[0].meta.icon"></component>
         </el-icon>
@@ -43,8 +43,8 @@ defineProps(['menuList'])
 const $router = useRouter()
 const userStore = useUserStore()
 let showRoute = (item: any) => {
-  if (item.meta.roleId) {
-    if (item.meta.roleId === userStore.roleId) return true
+  if (item.meta.access) {
+    if (item.meta.access.includes(userStore.roleId)) return true
     else return false
   } else {
     return true

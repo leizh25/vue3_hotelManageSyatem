@@ -1,6 +1,8 @@
 import request from '@/utils/request'
 import { AllRoomsResponse, Room, RoomByIdResponse } from './type'
 import type { Response } from '@/api/stay/type'
+import { getHotelEmpId } from '@/utils'
+
 enum API {
   ALLROOMS = '/rooms/allRooms',
   ROOM = '/rooms',
@@ -13,7 +15,7 @@ enum API {
  */
 export const reqAllRooms = (page: number, pageSize: number, roomNumber?: string, roomTypeId?: number) =>
   request.get<any, AllRoomsResponse>(
-    API.ALLROOMS + `?page=${page}&pageSize=${pageSize}&roomNumber=${roomNumber || ''}&roomTypeId=${roomTypeId || ''}`,
+    API.ALLROOMS + `?hotelId=${getHotelEmpId()}&page=${page}&pageSize=${pageSize}&roomNumber=${roomNumber || ''}&roomTypeId=${roomTypeId || ''}`,
   )
 
 /**

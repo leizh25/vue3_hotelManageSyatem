@@ -4,6 +4,7 @@
 import request from '@/utils/request'
 import { Order, OrderByOrderIdResponse, OrderResponse } from './type'
 import { Response } from '../stay/type'
+import { getHotelEmpId } from '@/utils'
 
 enum API {
   ORDER = '/order',
@@ -17,7 +18,7 @@ enum API {
  * @returns
  */
 export const reqAllOrders = (page: number, pageSize: number, orderName: string) =>
-  request.get<any, OrderResponse>(API.ORDER + `?page=${page}&pageSize=${pageSize}&orderName=${orderName || ''}`)
+  request.get<any, OrderResponse>(API.ORDER + `?hotelId=${getHotelEmpId()}&page=${page}&pageSize=${pageSize}&orderName=${orderName || ''}`)
 
 /**
  * 删除订单接口

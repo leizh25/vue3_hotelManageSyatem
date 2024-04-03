@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-card class="bg dock-window" style="height: 800px; position: relative">
-      <el-calendar v-model="date" style="width: 400px; position: absolute; right: 20px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1)" />
       <div style="width: 70%">
         <div style="display: flex">
           <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; margin-right: 20px">常用入口</h1>
@@ -27,7 +26,7 @@
         </el-form>
         <div ref="chart" style="width: 100%; height: 600px; margin-top: -30px"></div>
       </div>
-      <Dock :model="collectedMenu" position="bottom">
+      <Dock :model="collectedMenu" position="right">
         <template #item="{ item }">
           <router-link :to="getPath(item)" class="p-dock-link">
             <el-icon size="50" style="margin-left: 4px">
@@ -51,7 +50,6 @@ import type { CommentChartDataResponse, CommentChartData } from '@/api/charts/ty
 import { ElMessage } from 'element-plus'
 type EChartsOption = echarts.ComposeOption<GridComponentOption | BarSeriesOption>
 const userStore = useUserStore()
-const date = ref(new Date())
 const menuRoutes = ref<any>([])
 const checkList = ref<any>([])
 const collectedMenuString = ref<string>()
@@ -166,7 +164,6 @@ const getCommentChartData = async (p: number = commentChartDataNumber.value) => 
 }
 
 .p-dock-item {
-  margin-right: 30px;
   text-align: center;
 }
 

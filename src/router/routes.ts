@@ -20,6 +20,7 @@ export const constantRoutes = [
     meta: {
       title: '', //不写title和icon, 防止展示首页时在面包屑组件多出layout面包屑
       icon: '',
+      access: [1],
     },
     children: [
       {
@@ -28,6 +29,7 @@ export const constantRoutes = [
         meta: {
           title: '首页',
           icon: 'HomeFilled',
+          access: [1],
         },
       },
     ],
@@ -39,6 +41,7 @@ export const constantRoutes = [
     meta: {
       title: '入住管理',
       icon: 'Location',
+      access: [2],
     },
     redirect: '/stay/info',
     children: [
@@ -78,6 +81,7 @@ export const constantRoutes = [
     meta: {
       title: '订单管理',
       icon: 'DocumentChecked',
+      access: [2],
     },
     redirect: '/order/info',
     children: [
@@ -109,6 +113,7 @@ export const constantRoutes = [
       title: '员工管理',
       icon: 'Lock',
       roleId: 1,
+      access: [1],
     },
     redirect: '/emp/info',
     children: [
@@ -140,6 +145,7 @@ export const constantRoutes = [
     meta: {
       title: '', //不写title和icon, 防止展示首页时在面包屑组件多出layout面包屑
       icon: '',
+      access: [1],
     },
     children: [
       {
@@ -160,6 +166,7 @@ export const constantRoutes = [
     meta: {
       title: '', //不写title和icon, 防止展示首页时在面包屑组件多出layout面包屑
       icon: '',
+      access: [1],
     },
     children: [
       {

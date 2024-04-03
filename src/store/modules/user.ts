@@ -20,7 +20,7 @@ const useUserStore = defineStore('User', {
       avatar: '',
       empId: 0,
       roleId: Number(localStorage.getItem('roleId')) || 0,
-      hotelEmpId: '',
+      hotelEmpId: Number(localStorage.getItem('hotelEmpId')) || 0,
     }
   },
   //处理异步或者逻辑的地方
@@ -41,6 +41,7 @@ const useUserStore = defineStore('User', {
         this.empId = res.data.empId
         localStorage.setItem('roleId', (res.data.roleId && res.data.roleId.toString()) || '0')
         this.hotelEmpId = res.data.hotelEmpId
+        localStorage.setItem('hotelEmpId', res.data.hotelEmpId + '' || '')
         console.log(this.hotelEmpId)
         this.roleId = res.data.roleId
         //本地存储持久化存储一份
@@ -75,6 +76,7 @@ const useUserStore = defineStore('User', {
       this.avatar = ''
       this.roleId = 0
       localStorage.setItem('roleId', '0')
+      localStorage.setItem('hotelEmpId', '')
       REMOVE_TOKEN()
       reqLogout()
     },
