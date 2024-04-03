@@ -8,4 +8,5 @@ export interface UserState {
   avatar: string
   empId: number
   roleId: number
+  hotelEmpId: string | number
 }

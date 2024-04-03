@@ -13,8 +13,8 @@ enum API {
  * @param checkInName 查询人名
  * @returns
  */
-export const reqGetCheckin = (page: number = 1, pageSize: number = 10, checkInName?: string) =>
-  request.get<any, CheckInResponse>(API.CHECKIN + `?page=${page}&pageSize=${pageSize}&checkInName=${checkInName || ''}`)
+export const reqGetCheckin = (page: number = 1, pageSize: number = 10, checkInName?: string, hotelEmpId?: number | string) =>
+  request.get<any, CheckInResponse>(API.CHECKIN + `?page=${page}&pageSize=${pageSize}&hotelId=${hotelEmpId}&checkInName=${checkInName || ''}`)
 
 /**
  * 删除入住信息  接口

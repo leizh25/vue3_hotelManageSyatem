@@ -16,6 +16,8 @@ export interface loginResponseData {
     positions: string
     empAddress: string
     empName: string
+    hotelEmpId: string | number
+    empPhoto: string
   }
   map: {
     JWT: string
@@ -38,6 +40,7 @@ export interface userResponseData {
     positions: string
     empAddress: string
     empPhoto: string
+    hotelEmpId: number
   }
 }
 

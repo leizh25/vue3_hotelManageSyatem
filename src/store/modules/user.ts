@@ -20,6 +20,7 @@ const useUserStore = defineStore('User', {
       avatar: '',
       empId: 0,
       roleId: Number(localStorage.getItem('roleId')) || 0,
+      hotelEmpId: '',
     }
   },
   //处理异步或者逻辑的地方
@@ -36,9 +37,11 @@ const useUserStore = defineStore('User', {
         //由于pinia或者vuex存储数据其实就是利用js对象
         this.token = res.map.JWT
         this.userName = res.data.empName
-        this.avatar = 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+        this.avatar = res.data.empPhoto
         this.empId = res.data.empId
         localStorage.setItem('roleId', (res.data.roleId && res.data.roleId.toString()) || '0')
+        this.hotelEmpId = res.data.hotelEmpId
+        console.log(this.hotelEmpId)
         this.roleId = res.data.roleId
         //本地存储持久化存储一份
         SET_TOKEN(res.map.JWT)
@@ -53,6 +56,8 @@ const useUserStore = defineStore('User', {
       //获取用户信息存储仓库当中[用户头像,名字]
       const res = await reqUserInfo()
       //如果获取用户信息成功,存储一下用户信息
+      //   const z1 = res.data.hotelEmpId
+      //   localStorage.setItem('xxx', z1)
       if (res.code == 1) {
         this.userName = res.data.empName
         this.avatar = res.data.empPhoto
@@ -60,6 +65,7 @@ const useUserStore = defineStore('User', {
       } else {
         return Promise.reject('获取用户信息失败')
       }
+      console.log(res)
     },
     //退出登录
     userLogout() {

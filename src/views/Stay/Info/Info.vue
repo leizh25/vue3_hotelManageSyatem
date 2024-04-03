@@ -43,8 +43,10 @@
 </template>
 <script setup lang="ts">
 import { reqGetCheckin, reqDeleteCheckin } from '@/api/stay'
+import useUserStore from '@/store/modules/user'
 import type { CheckInRecord, CheckInResponse, Response } from '@/api/stay/type'
 import { ElMessage } from 'element-plus'
+const userStore = useUserStore()
 const currentPage = ref(1)
 const pageSize = ref(10)
 const total = ref(0)
@@ -55,6 +57,9 @@ onMounted(() => {
   getData()
 })
 
+let HotelEmpId = userStore.hotelEmpId
+console.log(HotelEmpId)
+
 /**
  * 获取入住记录
  */
@@ -63,7 +68,7 @@ const getData = async (page: number = currentPage.value) => {
     if (page) {
       currentPage.value = page
     }
-    const res: CheckInResponse = await reqGetCheckin(currentPage.value, pageSize.value, checkInName.value)
+    const res: CheckInResponse = await reqGetCheckin(currentPage.value, pageSize.value, checkInName.value, HotelEmpId)
     if (res.code === 1) {
       total.value = res.data.total
       records.value = res.data.records
